@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "158550708125",
+    "firebase_url": "https://gluten-free-scanner-e95e8-default-rtdb.firebaseio.com",
+    "project_id": "gluten-free-scanner-e95e8",
+    "storage_bucket": "gluten-free-scanner-e95e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158550708125:android:76d236138161e5d72da974",
+        "android_client_info": {
+          "package_name": "com.example.test1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158550708125-omf764b9t7lbkmcj5sk0gs3ckuu74tva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B4676yhrxk9wnguu8LXAeCb9h-wDNgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158550708125-omf764b9t7lbkmcj5sk0gs3ckuu74tva.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "158550708125-hlvaolmlh4gnj68cgkijcrnnbjmq0ui6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.test1.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
