@@ -18,17 +18,16 @@ class _ScanCodeState extends State<ScanCode> {
         appBar: AppBar(
           title: const Text('Scanner'),
           actions: [
-            IconButton(
+       IconButton(
               color: Colors.white,
               icon: ValueListenableBuilder(
                 valueListenable: cameraController.torchState,
                 builder: (context, state, child) {
                   switch (state as TorchState) {
                     case TorchState.off:
-                      return const Icon(Icons.flashlight_off,
-                          color: Colors.grey);
+                      return const Icon(Icons.flash_off, color: Colors.grey);
                     case TorchState.on:
-                      return const Icon(Icons.flash_on, color: Colors.amber);
+                      return const Icon(Icons.flash_on, color: Colors.yellow);
                   }
                 },
               ),
