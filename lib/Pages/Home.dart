@@ -1,13 +1,19 @@
 import 'NavBar.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test1/Pages/NavBarController.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-   @override
- Widget build(BuildContext context) {
-   return Scaffold(
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
      appBar: AppBar(
        actions: [
          IconButton(
@@ -45,5 +51,7 @@ class HomeScreen extends StatelessWidget {
      ),
      
    );
- }
+  }
 }
+
+

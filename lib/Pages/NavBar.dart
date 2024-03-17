@@ -1,59 +1,55 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:test1/Pages/Home.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:get/get.dart';
+import 'package:test1/Pages/NavBarController.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
 
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
 
-class _NavBarState extends State<NavBar> {
-  int currentPageIndex = 0;
 
+class NavBar extends StatelessWidget {
+  const NavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+     // ignore: no_leading_underscores_for_local_identifiers
+     NavBarController _controller = 
+      Get.put(NavBarController());
+
+      
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: Colors.purple,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-        
-
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        color: Colors.black,
+        child:  Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 20.0,
           ),
-
-           NavigationDestination(
-            selectedIcon: Icon(Icons.camera_alt_outlined),
-            icon: Icon(Icons.camera_alt),
-            label: 'Scan',
+          child: GNav(
+            backgroundColor: Colors.black,
+            color: Colors.white,
+            activeColor: Colors.white,
+            tabBackgroundColor: Colors.blueGrey,
+            gap: 8,
+            padding: const EdgeInsets.all(12),
+            onTabChange: (value){
+              _controller.index.value = value;
+            },
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(icon: Icons.camera_alt, text: 'Scan'),
+              GButton(icon: Icons.search, text: 'Search'),
+              GButton(icon: Icons.settings, text: 'Settings'),
+            ],
           ),
-
-           NavigationDestination(
-            selectedIcon: Icon(Icons.person_2_outlined),
-            icon: Icon(Icons.person_2),
-            label: 'Profile',
-          ),
-
-           NavigationDestination(
-            selectedIcon: Icon(Icons.settings_outlined),
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+        ),
       ),
-  
-
+       body: Obx(
+          () =>  _controller.pages[_controller.index.value],
+      )
     );
   }
 }

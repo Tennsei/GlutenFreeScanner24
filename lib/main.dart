@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:test1/Pages/AuthGate.dart';
 import 'firebase_options.dart';
-import 'Pages/AuthGate.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+
 
 
 void main() async{
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title:'Gluten Free Scanner',
       theme: ThemeData(),
-      home: const AuthGate(),
+      home:  const AuthGate(),
     );
   }
 
