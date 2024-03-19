@@ -77,6 +77,7 @@ class _ScanCodeState extends State<ScanCode> {
                 barcodeValue,
                 version: ProductQueryVersion.v3,
                 language: OpenFoodFactsLanguage.ENGLISH,
+
               );
 
               try {
