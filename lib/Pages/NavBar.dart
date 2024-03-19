@@ -40,9 +40,17 @@ class NavBar extends StatelessWidget {
                 icon: Icons.home,
                 text: 'Home',
               ),
-              GButton(icon: Icons.camera_alt, text: 'Scan'),
-              GButton(icon: Icons.search, text: 'Search'),
-              GButton(icon: Icons.settings, text: 'Settings'),
+              GButton(
+                icon: Icons.camera_alt, 
+                text: 'Scan'
+                ),
+              GButton(
+                icon: Icons.search, 
+                text: 'Search'
+                ),
+              GButton(icon: Icons.settings,
+               text: 'Settings'
+               ),
             ],
           ),
         ),

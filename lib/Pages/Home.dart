@@ -1,7 +1,5 @@
-import 'NavBar.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test1/Pages/NavBarController.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
              'Welcome',
              style: Theme.of(context).textTheme.displaySmall,
            ),
+            
          ],
        ),
      ),

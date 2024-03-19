@@ -11,6 +11,7 @@ class NavBarController extends GetxController {
   var pages = [
     HomeScreen(),
     ScanCode(),
+    FoodSearch(),
     AuthGate(),
     
   ];

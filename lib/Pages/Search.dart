@@ -1,17 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
-class SearchFood extends StatefulWidget {
-  const SearchFood({super.key});
+class FoodSearch extends StatefulWidget {
+  const FoodSearch({super.key});
 
   @override
-  State<SearchFood> createState() => _SearchFoodState();
+  State<FoodSearch> createState() => _FoodSearchState();
 }
 
-class _SearchFoodState extends State<SearchFood> {
+class _FoodSearchState extends State<FoodSearch> {
+
+
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Gluten Free Scanner');
+    OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
+      OpenFoodFactsLanguage.ENGLISH
+    ];
+
+    OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Search'),
+      ),
+      body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SearchAnchor(
+              builder: (BuildContext context, SearchController controller) {
+            return SearchBar(
+              controller: controller,
+              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 16.0)),
+              onTap: () {
+                controller.openView();
+              },
+              onChanged: (_) {
+                controller.openView();
+              },
+              leading: const Icon(Icons.search),
+            );
+          }, suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+            return List<ListTile>.generate(5, (int index) {
+              final String item = 'item $index';
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  setState(() {
+                    controller.closeView(item);
+                  });
+                },
+              );
+            });
+          }),
+        ),
+      );
   }
 }
