@@ -2,6 +2,9 @@ import 'dart:typed_data';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+
+
+
 import 'package:test1/Pages/OpenFoodFactsAPi.dart';
 
 class ScanCode extends StatefulWidget {
@@ -12,9 +15,12 @@ class ScanCode extends StatefulWidget {
 }
 
 class _ScanCodeState extends State<ScanCode> {
+
+  
   @override
   Widget build(BuildContext context) {
     MobileScannerController cameraController = MobileScannerController();
+   
 
     return Scaffold(
         appBar: AppBar(
@@ -58,49 +64,59 @@ class _ScanCodeState extends State<ScanCode> {
           controller: MobileScannerController(
             detectionSpeed: DetectionSpeed.noDuplicates,
             facing: CameraFacing.back,
-            torchEnabled: true,
+            torchEnabled: false,
           ),
           onDetect: (capture) async {
-             var tempString;
-             var name;
-             var imageUrl;
-            var product = await OpenFoodAPIClient.getProductV3(
-              ProductQueryConfiguration(tempString,
-                  version: ProductQueryVersion.v3),
-            );
-            product.product?.imageFrontUrl;
-                    if (product.product != null) {
-                       imageUrl = "${product.product?.imageFrontUrl}";
-                      //var imageWidget = Image.network(imageUrl);
-                       name =
-                          "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
+              final List<Barcode> barcodes = capture.barcodes;
+  final Uint8List? image = capture.image;
 
-           
-            final List<Barcode> barcodes = capture.barcodes;
-            final Uint8List? image = capture.image;
-            for (final barcode in barcodes) {
-              debugPrint('Barcode found! ${barcode.rawValue}');
-            }
-            if (image != null) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(
-                        name
-                      ),
-                      content: Image(
-                        image: MemoryImage(image),
-                      ),
-                    );
-                  });
-              Future.delayed(const Duration(seconds: 5), () {
-                Navigator.pop(context);
-              });
-            }
-        
-          };
-        
-  }));
+  for (final barcode in barcodes) {
+    final String? barcodeValue = barcode.rawValue;
+    if (barcodeValue != null) {
+      final ProductQueryConfiguration configuration =
+          ProductQueryConfiguration(barcodeValue, version: ProductQueryVersion.v3, language: OpenFoodFactsLanguage.ENGLISH);
+      final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(configuration);
+
+      if (result.status == 1 && result.product != null) {
+        final product = result.product!;
+        final productName = product.getBestProductName(OpenFoodFactsLanguage.ENGLISH);
+     
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(productName ?? 'Product'),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                
+                  if (image != null) Image(image: MemoryImage(image)),
+                ],
+              ),
+            );
+          },
+        );
+
+        Future.delayed(const Duration(seconds: 5), () {
+          Navigator.pop(context);
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Product not found'),
+              content: Text('No product information found for barcode: $barcodeValue'),
+            );
+          },
+        );
+      }
+    }
+  }
+},
+        ),
+  );
   }
 }
