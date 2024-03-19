@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
-import 'package:html/dom.dart' as dom;
-import 'package:test1/Pages/status.dart';
 
 void main() => runApp(const FoodSearch());
 
