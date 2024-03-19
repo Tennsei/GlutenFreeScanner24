@@ -80,11 +80,7 @@ class _ScanCodeState extends State<ScanCode> {
       if (result.status == 1 && result.product != null) {
         final product = result.product!;
         final productName = product.getBestProductName(OpenFoodFactsLanguage.ENGLISH);
-        final energy = product.nutriments?.getEnergyValue();
-        final fat = product.nutriments?.getFat100g();
-        final carbohydrates = product.nutriments?.getCarbohydrates100g();
-        final proteins = product.nutriments?.getProteins100g();
-
+    
         showDialog(
           context: context,
           builder: (context) {
@@ -94,10 +90,6 @@ class _ScanCodeState extends State<ScanCode> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (energy != null) Text('Energy: $energy kJ'),
-                  if (fat != null) Text('Fat: $fat g'),
-                  if (carbohydrates != null) Text('Carbohydrates: $carbohydrates g'),
-                  if (proteins != null) Text('Proteins: $proteins g'),
                   if (image != null) Image(image: MemoryImage(image)),
                 ],
               ),
