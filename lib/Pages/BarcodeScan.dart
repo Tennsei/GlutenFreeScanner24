@@ -67,36 +67,9 @@ class _ScanCodeState extends State<ScanCode> {
             torchEnabled: false,
           ),
           onDetect: (capture) async {
-              final List<Barcode> barcodes = capture.barcodes;
+             final List<Barcode> barcodes = capture.barcodes;
   final Uint8List? image = capture.image;
 
-           
-            final List<Barcode> barcodes = capture.barcodes;
-            final Uint8List? image = capture.image;
-            for (final barcode in barcodes) {
-              debugPrint('Barcode found! ${barcode.rawValue}');
-            }
-            if (image != null) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(
-                        name + imageUrl
-                      ),
-                      content: Image(
-                        image: MemoryImage(image),
-                      ),
-                    );
-                  });
-              Future.delayed(const Duration(seconds: 5), () {
-                Navigator.pop(context);
-              });
-            }
-        
-          };
-        
-  }));
   for (final barcode in barcodes) {
     final String? barcodeValue = barcode.rawValue;
     if (barcodeValue != null) {
@@ -107,7 +80,10 @@ class _ScanCodeState extends State<ScanCode> {
       if (result.status == 1 && result.product != null) {
         final product = result.product!;
         final productName = product.getBestProductName(OpenFoodFactsLanguage.ENGLISH);
-     
+        final energy = product.nutriments?.getEnergyValue();
+        final fat = product.nutriments?.getFat100g();
+        final carbohydrates = product.nutriments?.getCarbohydrates100g();
+        final proteins = product.nutriments?.getProteins100g();
 
         showDialog(
           context: context,
@@ -118,7 +94,10 @@ class _ScanCodeState extends State<ScanCode> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                
+                  if (energy != null) Text('Energy: $energy kJ'),
+                  if (fat != null) Text('Fat: $fat g'),
+                  if (carbohydrates != null) Text('Carbohydrates: $carbohydrates g'),
+                  if (proteins != null) Text('Proteins: $proteins g'),
                   if (image != null) Image(image: MemoryImage(image)),
                 ],
               ),
@@ -143,6 +122,7 @@ class _ScanCodeState extends State<ScanCode> {
     }
   }
 },
+
         ),
   );
   }
