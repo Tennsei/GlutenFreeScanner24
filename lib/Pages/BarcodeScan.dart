@@ -20,7 +20,7 @@ class _ScanCodeState extends State<ScanCode> {
   @override
   Widget build(BuildContext context) {
     MobileScannerController cameraController = MobileScannerController();
-   
+     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'GF Scanner');
 
     return Scaffold(
         appBar: AppBar(
@@ -69,7 +69,7 @@ class _ScanCodeState extends State<ScanCode> {
           onDetect: (capture) async {
              final List<Barcode> barcodes = capture.barcodes;
   final Uint8List? image = capture.image;
-
+  
   for (final barcode in barcodes) {
     final String? barcodeValue = barcode.rawValue;
     if (barcodeValue != null) {
