@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -79,10 +80,12 @@ class _ScanCodeState extends State<ScanCode> {
       final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(configuration);
        print('API response status: ${result.status}');
         print('API response product: ${result.product}');
+          print('API response error: ${result.errors}');
 
       if (result.status == 1 && result.product != null) {
         final product = result.product!;
         final productName = product.getBestProductName(OpenFoodFactsLanguage.ENGLISH);
+        final value = product.nutriments?.getValue(Nutrient as Nutrient, PerSize as PerSize);
     
         showDialog(
           context: context,
@@ -93,6 +96,7 @@ class _ScanCodeState extends State<ScanCode> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (value != null) Text('This has $value in it'),
                   if (image != null) Image(image: MemoryImage(image)),
                 ],
               ),
@@ -100,10 +104,11 @@ class _ScanCodeState extends State<ScanCode> {
           },
         );
 
-        Future.delayed(const Duration(seconds: 5), () {
+        Future.delayed(const Duration(seconds: 30), () {
           Navigator.pop(context);
         });
       } else {
+          print('API response error message: ${result.errors}');
         showDialog(
           context: context,
           builder: (context) {
@@ -115,7 +120,7 @@ class _ScanCodeState extends State<ScanCode> {
         );
       }
     }
-  }
+  } 
 },
 
         ),
