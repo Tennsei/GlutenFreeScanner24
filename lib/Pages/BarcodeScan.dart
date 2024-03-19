@@ -11,14 +11,33 @@ class ScanCode extends StatefulWidget {
 }
 
 class _ScanCodeState extends State<ScanCode> {
+  
   MobileScannerController cameraController = MobileScannerController();
   bool isFlashlightOn = false;
+
+   @override
+  void initState() {
+    super.initState();
+    _configureOpenFoodAPIClient();
+  }
+
+  void _configureOpenFoodAPIClient() {
+    OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'GF Scanner');
+    OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
+    OpenFoodFactsLanguage.ENGLISH
+    ];
+      OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
+  }
+
+
 
   @override
   void dispose() {
     cameraController.dispose();
     super.dispose();
   }
+   
+   
 
   Future<void> toggleFlashlight() async {
     // final TorchState torchState = await cameraController.toggleTorch();
