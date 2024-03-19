@@ -65,8 +65,8 @@ class _ScanCodeState extends State<ScanCode> {
               print('Barcode value: $barcodeValue');
 
               try {
-                final ProductResultV3 result =
-                    await OpenFoodAPIClient.getProductV3(barcodeValue as ProductQueryConfiguration);
+                final ProductQueryConfiguration config = ProductQueryConfiguration(barcodeValue, version: ProductQueryVersion.v3);
+                final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(config);
 
                 if (result.status == 1 && result.product != null) {
                   final product = result.product!;
@@ -88,18 +88,18 @@ class _ScanCodeState extends State<ScanCode> {
                             if (nutriments != null)
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('Nutritional Value:'),
-                                  // if (nutriments.energy_100g != null)
-                                  //   Text('Energy: ${nutriments.energy_100g}'),
-                                  // if (nutriments.fat_100g != null)
-                                  //   Text('Fat: ${nutriments.fat_100g}'),
-                                  // if (nutriments.carbohydrates_100g != null)
-                                  //   Text(
-                                  //       'Carbohydrates: ${nutriments.carbohydrates_100g}'),
-                                  // if (nutriments.proteins_100g != null)
-                                  //   Text('Proteins: ${nutriments.proteins_100g}'),
-                                ],
+                                // children: [
+                                //   Text('Nutritional Value:'),
+                                //   if (nutriments.energy_100g != null)
+                                //     Text('Energy: ${nutriments.energy_100g}'),
+                                //   if (nutriments.fat_100g != null)
+                                //     Text('Fat: ${nutriments.fat_100g}'),
+                                //   if (nutriments.carbohydrates_100g != null)
+                                //     Text(
+                                //         'Carbohydrates: ${nutriments.carbohydrates_100g}'),
+                                //   if (nutriments.proteins_100g != null)
+                                //     Text('Proteins: ${nutriments.proteins_100g}'),
+                                // ],
                               ),
                             if (image != null)
                               Image(image: MemoryImage(image)),
