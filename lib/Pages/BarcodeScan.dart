@@ -73,9 +73,12 @@ class _ScanCodeState extends State<ScanCode> {
   for (final barcode in barcodes) {
     final String? barcodeValue = barcode.rawValue;
     if (barcodeValue != null) {
+      print('Scanned barcode: $barcodeValue'); 
       final ProductQueryConfiguration configuration =
           ProductQueryConfiguration(barcodeValue, version: ProductQueryVersion.v3, language: OpenFoodFactsLanguage.ENGLISH);
       final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(configuration);
+       print('API response status: ${result.status}');
+        print('API response product: ${result.product}');
 
       if (result.status == 1 && result.product != null) {
         final product = result.product!;
