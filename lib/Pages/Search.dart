@@ -11,8 +11,6 @@ class FoodSearch extends StatefulWidget {
 
 class _FoodSearchState extends State<FoodSearch> {
 
-
-
   @override
   Widget build(BuildContext context) {
      OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Gluten Free Scanner');
@@ -21,7 +19,8 @@ class _FoodSearchState extends State<FoodSearch> {
     ];
 
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
-    
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Search'),

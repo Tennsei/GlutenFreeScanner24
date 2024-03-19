@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(
+      ///Profile Page
        actions: [
          IconButton(
            icon: const Icon(Icons.person),
@@ -37,11 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
        ],
        automaticallyImplyLeading: false,
      ),
+     //center of the app @TODO add something more to this page
      body: Center(
        child: Column(
          children: [
            Text(
-             'Welcome',
+             'Welcome User',
              style: Theme.of(context).textTheme.displaySmall,
            ),
             
