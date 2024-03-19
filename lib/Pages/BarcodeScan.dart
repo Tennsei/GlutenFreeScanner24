@@ -87,7 +87,7 @@ class _ScanCodeState extends State<ScanCode> {
                   builder: (context) {
                     return AlertDialog(
                       title: Text(
-                        name
+                        name + imageUrl
                       ),
                       content: Image(
                         image: MemoryImage(image),
